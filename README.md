@@ -31,7 +31,7 @@ DB_HOST=127.0.0.1
 DB_PORT=5432
 DB_USER=adonis
 DB_PASSWORD=secret
-DB_DATABASE=adoni
+DB_DATABASE=adonis
 ```
 
 
