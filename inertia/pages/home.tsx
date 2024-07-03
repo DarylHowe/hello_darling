@@ -1,18 +1,27 @@
 import { Head } from '@inertiajs/react'
+import Layout from '~/components/layout'
+import '../css/home.css'
 
-export default function Home(props: { version: number }) {
+export default function Home(props: {
+  version: number
+  user: { fullName: string; email: string }
+}) {
   return (
     <>
       <Head title="Homepage" />
-
-      <div className="container">
-        <div className="title">AdonisJS {props.version} x Inertia x React</div>
-
-        <span>
-          Learn more about AdonisJS and Inertia.js by visiting the{' '}
-          <a href="https://docs.adonisjs.com/guides/inertia">AdonisJS documentation</a>.
-        </span>
-      </div>
+      <Layout>
+        <div className="home-container">
+          <h1>User Info</h1>
+          <div className="user-info">
+            <p>
+              <strong>Full Name:</strong> {props.user.fullName}
+            </p>
+            <p>
+              <strong>Email:</strong> {props.user.email}
+            </p>
+          </div>
+        </div>
+      </Layout>
     </>
   )
 }
