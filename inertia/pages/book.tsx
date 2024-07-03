@@ -50,8 +50,6 @@ export default function Book({ books }: BookProps) {
                       <li key={review.id} className="review-item">
                         <p>Reviewer: {review.user.fullName}</p>
                         <p>Review: "{review.comment}"</p>
-                        <p>Reviewed at: {review.createdAt}</p>
-                        <p>Reviewed by: {review.reviewer_name}</p>
                       </li>
                     ))}
                   </ul>
