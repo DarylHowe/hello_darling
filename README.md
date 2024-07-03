@@ -45,7 +45,7 @@ A step-by-step series of examples that tell you how to get a development env run
 
 ```
 git clone https://github.com/DarylHowe/hello_darling.git
-cd my-adonisjs-app
+cd hello_darling
  ```
 
 2. Create .env file in my-adonisjs-app directory, copy paste values from .env.example file into it. 
