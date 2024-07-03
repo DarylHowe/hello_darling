@@ -1,28 +1,26 @@
-import { useState } from 'react';
-import {Head, router} from '@inertiajs/react';
-import Layout from '~/components/layout';
-import '../css/book.css';
+import { useState } from 'react'
+import { Head, router } from '@inertiajs/react'
+import Layout from '~/components/layout'
+import '../css/book.css'
 
 const BookForm = () => {
-
   const [formData, setFormData] = useState({
     title: '',
-    author: ''
-  });
+    author: '',
+  })
 
-  const handleChange = (e: { target: { name: any; value: any; }; }) => {
-
-    const { name, value } = e.target;
+  const handleChange = (e: { target: { name: any; value: any } }) => {
+    const { name, value } = e.target
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
-    router.post('/book', formData );
-  };
+  const handleSubmit = (e: { preventDefault: () => void }) => {
+    e.preventDefault()
+    router.post('/book', formData)
+  }
 
   return (
     <Layout>
@@ -54,7 +52,7 @@ const BookForm = () => {
         </form>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default BookForm;
+export default BookForm

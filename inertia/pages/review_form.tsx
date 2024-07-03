@@ -1,66 +1,66 @@
-import React, {useState} from 'react';
-import {Head, router} from '@inertiajs/react';
-import Layout from '~/components/layout';
-import '../css/book.css';
+import React, { useState } from 'react'
+import { Head, router } from '@inertiajs/react'
+import Layout from '~/components/layout'
+import '../css/book.css'
 
 interface Book {
-  id: number;
-  title: string;
-  author: string;
+  id: number
+  title: string
+  author: string
 }
 
 interface ReviewFormProps {
-  book: Book;
-  error: string | undefined; // Define the error message type
+  book: Book
+  error: string | undefined // Define the error message type
 }
 
-const ReviewForm: React.FC<ReviewFormProps> = ({book, error}) => {
+const ReviewForm: React.FC<ReviewFormProps> = ({ book, error }) => {
   const [formData, setFormData] = useState({
     rating: '',
     comment: '',
     book_id: book.id,
-  });
+  })
 
-  const [ratingError, setRatingError] = useState<string | null>(null);
+  const [ratingError, setRatingError] = useState<string | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
 
     // Client-side validation
     // @ts-ignore
     if (formData.rating < 1 || formData.rating > 5) {
-      setRatingError('Rating must be between 1 and 5.');
-      return;
+      setRatingError('Rating must be between 1 and 5.')
+      return
     }
 
     // Clear any previous error message
-    setRatingError(null);
+    setRatingError(null)
 
     // Post data to server-side endpoint
     try {
-      await router.post('/review', formData);
+      await router.post('/review', formData)
       // Optionally redirect or show success message
     } catch (error) {
       // Handle error
-      console.error('Error submitting review:', error);
+      console.error('Error submitting review:', error)
     }
-  };
+  }
 
   return (
     <Layout>
       <div className="book-form-container">
-        <Head title="Review"/>
+        <Head title="Review" />
         <h2>{book.title}</h2>
         <p>{book.author}</p>
-        <br/>
+        <br />
         <br></br>
         <h1>Create A Review</h1>
         <form onSubmit={handleSubmit}>
@@ -85,19 +85,19 @@ const ReviewForm: React.FC<ReviewFormProps> = ({book, error}) => {
             required
           />
           {ratingError && <p className="error-message">{ratingError}</p>}
-          {error &&
+          {error && (
             <div>
               <p className="error-message">Error From The Server!!!</p>
               <p className="error-message">{error}</p>
               <br></br>
             </div>
-          }
-          <input type="hidden" name="book_id" value={formData.book_id}/>
+          )}
+          <input type="hidden" name="book_id" value={formData.book_id} />
           <button type="submit">Add Review</button>
         </form>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default ReviewForm;
+export default ReviewForm

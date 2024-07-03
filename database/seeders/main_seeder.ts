@@ -1,7 +1,7 @@
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
-import Book from "#models/book";
-import User from "#models/user";
-import Review from "#models/review";
+import Book from '#models/book'
+import User from '#models/user'
+import Review from '#models/review'
 
 export default class extends BaseSeeder {
   async run() {
@@ -17,9 +17,8 @@ export default class extends BaseSeeder {
         fullName: 'Test User 2',
         email: 'test_user_2@test.com',
         password: 'password',
-      }
+      },
     ])
-
 
     await Book.createMany([
       { title: 'Book 1', author: 'Author 1' },

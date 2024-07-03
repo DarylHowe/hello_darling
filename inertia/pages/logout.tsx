@@ -1,13 +1,12 @@
-import '../css/Logout.css';
-import {router} from "@inertiajs/react";
-import Layout from "~/components/layout";
+import '../css/Logout.css'
+import { router } from '@inertiajs/react'
+import Layout from '~/components/layout'
 
 const Logout = () => {
-
   const handleLogoutClick = () => {
-    console.log('Logout button clicked');
+    console.log('Logout button clicked')
     router.post('/logout')
-  };
+  }
 
   return (
     <Layout>
@@ -18,7 +17,7 @@ const Logout = () => {
         </button>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default Logout;
+export default Logout

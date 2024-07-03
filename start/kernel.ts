@@ -48,5 +48,5 @@ router.use([
 export const middleware = router.named({
   guest: () => import('#middleware/guest_middleware'),
   auth: () => import('#middleware/auth_middleware'),
-  canLeaveReview: () => import('#middleware/can_leave_review_middleware')
+  canLeaveReview: () => import('#middleware/can_leave_review_middleware'),
 })

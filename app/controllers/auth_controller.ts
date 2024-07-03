@@ -1,16 +1,15 @@
-import type {HttpContext} from '@adonisjs/core/http'
+import type { HttpContext } from '@adonisjs/core/http'
 
 // Models
 import User from '#models/user'
 
 export default class AuthController {
-
   /**
    * Display Register Page
    *
    * @param inertia
    */
-  public async registerPage({inertia}: HttpContext) {
+  public async registerPage({ inertia }: HttpContext) {
     return inertia.render('register', {})
   }
 
@@ -19,7 +18,7 @@ export default class AuthController {
    *
    * @param inertia
    */
-  public async loginPage({inertia}: HttpContext) {
+  public async loginPage({ inertia }: HttpContext) {
     return inertia.render('login', {})
   }
 
@@ -28,7 +27,7 @@ export default class AuthController {
    *
    * @param inertia
    */
-  public async logoutPage({inertia}: HttpContext) {
+  public async logoutPage({ inertia }: HttpContext) {
     return inertia.render('logout', {})
   }
 
@@ -39,36 +38,33 @@ export default class AuthController {
    * @param request
    * @param response
    */
-  public async register({auth, request, response}: HttpContext) {
-
+  public async register({ auth, request, response }: HttpContext) {
     // Validation Skipped
     // Todo: Add server side validation for email, password.
     //  Ensure email value exists, unique, is valid email.
     //  Ensure password meets and security requirements such as let, special characters etc
 
     try {
-      const {email, password} = request.all();
+      const { email, password } = request.all()
 
       // Service Class Skipped
       // Todo: Refactor below code to AuthService class
       //  Keep controller clean of any business logic
       //  Service method for me can be more easily testable/re-used
-      const fullName = this.generateRandomName();
+      const fullName = this.generateRandomName()
       const user = await User.create({
         email,
         password,
-        fullName
-      });
-      await auth.use('web').login(user);
+        fullName,
+      })
+      await auth.use('web').login(user)
 
-
-      return response.redirect('/books');
+      return response.redirect('/books')
     } catch (error) {
-
       // Logging Skipped
       // Todo: Include logging detailing the error
 
-      return response.status(500).send({error: 'Registration failed'})
+      return response.status(500).send({ error: 'Registration failed' })
     }
   }
 
@@ -79,15 +75,14 @@ export default class AuthController {
    * @param request
    * @param response
    */
-  public async login({auth, request, response}: HttpContext) {
-
+  public async login({ auth, request, response }: HttpContext) {
     // Validation Skipped
     // Todo: Add server side validation for email, password.
     //  Ensure email value exists.
     //  Ensure password value exists.
 
     try {
-      const {email, password} = request.only(['email', 'password'])
+      const { email, password } = request.only(['email', 'password'])
 
       // Service Class Skipped
       // Todo: Refactor below code to AuthService class
@@ -99,19 +94,17 @@ export default class AuthController {
         // Logging Skipped
         // Todo: Consider logging the attempted login - may need better solution than simply logging.
         //  Would need to be careful about this also in case of attack
-        return response.status(401).send({error: 'Invalid credentials'});
+        return response.status(401).send({ error: 'Invalid credentials' })
       }
 
       await auth.use('web').login(user)
 
       response.redirect('/books')
     } catch (e) {
-
       // Logging Skipped
       // Todo: Include logging info message detailing the error
-      return response.status(500).send({error: 'Registration failed'})
+      return response.status(500).send({ error: 'Registration failed' })
     }
-
   }
 
   /**
@@ -132,11 +125,11 @@ export default class AuthController {
       'George Wilson',
       'Hannah Taylor',
       'Ian Clark',
-      'Julia Roberts'
-    ];
+      'Julia Roberts',
+    ]
 
     // Generate a random index to pick a name
-    const randomIndex = Math.floor(Math.random() * names.length);
-    return names[randomIndex];
-  };
+    const randomIndex = Math.floor(Math.random() * names.length)
+    return names[randomIndex]
+  }
 }

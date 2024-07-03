@@ -1,38 +1,34 @@
-import type {HttpContext} from '@adonisjs/core/http'
+import type { HttpContext } from '@adonisjs/core/http'
 
 // Models
-import Book from "#models/book";
+import Book from '#models/book'
 
 export default class BooksController {
-
   /**
    * Display book listing page.
    *
    * @param inertia
    * @param response
    */
-  public async index({inertia, response}: HttpContext) {
-
+  public async index({ inertia, response }: HttpContext) {
     // Service/Repository Class Skipped
     // Todo: Refactor below code to BookService / BookRepository class
     try {
       const books = await Book.query()
         // @ts-ignore
         .preload('reviews', (query) => {
-
           // @ts-ignore
           query.preload('user')
-        }).orderBy('created_at', 'desc');
+        })
+        .orderBy('created_at', 'desc')
 
-      return inertia.render('book', {books: books})
+      return inertia.render('book', { books: books })
     } catch (e) {
-
       // Logging Skipped
       // Todo: Include logging detailing the error
 
-      return response.status(500).send({error: 'Error listing books.'})
+      return response.status(500).send({ error: 'Error listing books.' })
     }
-
   }
 
   /**
@@ -40,7 +36,7 @@ export default class BooksController {
    *
    * @param inertia
    */
-  public async create({inertia}: HttpContext) {
+  public async create({ inertia }: HttpContext) {
     return inertia.render('book_form')
   }
 
@@ -51,8 +47,7 @@ export default class BooksController {
    * @param inertia
    * @param response
    */
-  public async store({request, response}: HttpContext) {
-
+  public async store({ request, response }: HttpContext) {
     // Validation Skipped
     // Todo: Add server side validation for title, author
     //  Ensure title value exists, is string, min/max lengths etc.
@@ -62,19 +57,15 @@ export default class BooksController {
     const data = request.only(['title', 'author'])
 
     try {
-
       // Service/Repository Class Skipped
       // Todo: Refactor below code to BookService / BookRepository class
-      await Book.create(
-        {title: data.title, author: data.author}
-      )
+      await Book.create({ title: data.title, author: data.author })
 
-      return response.redirect().toRoute('book.index');
+      return response.redirect().toRoute('book.index')
     } catch (e) {
-
       // Logging Skipped
       // Todo: Include logging detailing the error
-      return response.status(500).send({error: 'Error storing book.'})
+      return response.status(500).send({ error: 'Error storing book.' })
     }
   }
 }

@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
-import Book from "#models/book";
-import User from "#models/user";
+import Book from '#models/book'
+import User from '#models/user'
 
 export default class Review extends BaseModel {
   @column({ isPrimary: true })
@@ -26,15 +26,7 @@ export default class Review extends BaseModel {
   declare comment: string
 
   static get columns() {
-    return [
-      'id',
-      'book_id',
-      'user_id',
-      'rating',
-      'comment',
-      'created_at',
-      'updated_at'
-    ]
+    return ['id', 'book_id', 'user_id', 'rating', 'comment', 'created_at', 'updated_at']
   }
 
   // @ts-ignore

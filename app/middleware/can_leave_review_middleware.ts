@@ -1,12 +1,11 @@
-import type {HttpContext} from '@adonisjs/core/http'
-import type {NextFn} from '@adonisjs/core/types/http'
+import type { HttpContext } from '@adonisjs/core/http'
+import type { NextFn } from '@adonisjs/core/types/http'
 
 // Models
-import Review from "#models/review";
+import Review from '#models/review'
 
 export default class CanLeaveReviewMiddleware {
   async handle(ctx: HttpContext, next: NextFn) {
-
     const userId = ctx.auth.user?.id
     const bookId = ctx.params.id
 
@@ -22,7 +21,7 @@ export default class CanLeaveReviewMiddleware {
 
     if (userReviewIsExisting) {
       ctx.session.flash('error', 'You have already left a review for this book.')
-      return ctx.response.redirect().back();
+      return ctx.response.redirect().back()
     }
 
     return await next()

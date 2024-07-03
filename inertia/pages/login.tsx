@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Head, router } from '@inertiajs/react'
 
 import '../css/Login.css'
-import Layout from "~/components/layout";
+import Layout from '~/components/layout'
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +10,7 @@ const Login = () => {
     password: 'password',
   })
 
-  const handleChange = (e: { target: { name: any; value: any; }; }) => {
+  const handleChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target
     setFormData((prevState) => ({
       ...prevState,
@@ -18,7 +18,7 @@ const Login = () => {
     }))
   }
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     console.log('handleSubmit')
     e.preventDefault()
     router.post('/login', formData)
@@ -27,7 +27,7 @@ const Login = () => {
   return (
     <Layout>
       <div className="login-container">
-        <Head title="Login"/>
+        <Head title="Login" />
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
           <label htmlFor="email">Email</label>

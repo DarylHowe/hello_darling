@@ -1,8 +1,11 @@
-import { Head } from '@inertiajs/react';
-import Layout from '~/components/layout';
-import '../css/home.css';
+import { Head } from '@inertiajs/react'
+import Layout from '~/components/layout'
+import '../css/home.css'
 
-export default function Home(props: { version: number, user: { fullName: string, email: string } }) {
+export default function Home(props: {
+  version: number
+  user: { fullName: string; email: string }
+}) {
   return (
     <>
       <Head title="Homepage" />
@@ -10,11 +13,15 @@ export default function Home(props: { version: number, user: { fullName: string,
         <div className="home-container">
           <h1>User Info</h1>
           <div className="user-info">
-            <p><strong>Full Name:</strong> {props.user.fullName}</p>
-            <p><strong>Email:</strong> {props.user.email}</p>
+            <p>
+              <strong>Full Name:</strong> {props.user.fullName}
+            </p>
+            <p>
+              <strong>Email:</strong> {props.user.email}
+            </p>
           </div>
         </div>
       </Layout>
     </>
-  );
+  )
 }
