@@ -48,7 +48,7 @@ git clone https://github.com/DarylHowe/hello_darling.git
 cd hello_darling
  ```
 
-2. Create .env file in my-adonisjs-app directory, copy paste values from .env.example file into it. 
+2. Create .env file in root directory, copy paste values from .env.example file into it. 
 
 
 3. Run build script (or run commands in this script in your project in main directory if script not working)
