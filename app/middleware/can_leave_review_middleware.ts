@@ -21,7 +21,8 @@ export default class CanLeaveReviewMiddleware {
       .first()
 
     if (userReviewIsExisting) {
-      return ctx.response.status(403).json({error: 'You have already left a review for this book.'})
+      ctx.session.flash('error', 'You have already left a review for this book.')
+      return ctx.response.redirect().back();
     }
 
     return await next()

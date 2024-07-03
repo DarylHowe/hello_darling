@@ -22,7 +22,7 @@ export default class BooksController {
 
           // @ts-ignore
           query.preload('user')
-        });
+        }).orderBy('created_at', 'desc');
 
       return inertia.render('book', {books: books})
     } catch (e) {
@@ -51,7 +51,7 @@ export default class BooksController {
    * @param inertia
    * @param response
    */
-  public async store({request, inertia, response}: HttpContext) {
+  public async store({request, response}: HttpContext) {
 
     // Validation Skipped
     // Todo: Add server side validation for title, author
@@ -69,15 +69,12 @@ export default class BooksController {
         {title: data.title, author: data.author}
       )
 
-      // @ts-ignore
-      const books = await Book.query().preload('reviews')
-
-      return inertia.render('book', {books: books})
+      return response.redirect().toRoute('book.index');
     } catch (e) {
 
       // Logging Skipped
       // Todo: Include logging detailing the error
-      return response.status(500).send({error: 'Error listing books.'})
+      return response.status(500).send({error: 'Error storing book.'})
     }
   }
 }

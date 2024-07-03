@@ -14,6 +14,9 @@ const inertiaConfig = defineConfig({
     // 👇 Scoped to the current request
     user: (ctx) => ctx.auth?.user,
     errors: (ctx) => ctx.session?.flashMessages.get('errors'),
+    flash: (ctx) => ({
+      error: ctx.session.flashMessages.get('error')
+    }),
   },
 
   /**

@@ -38,8 +38,9 @@ export default class ReviewsController {
    * @param request
    * @param inertia
    * @param auth
+   * @param response
    */
-  public async store({request, inertia, auth}: HttpContext) {
+  public async store({request, inertia, auth, response}: HttpContext) {
 
     const data = request.all()
 
@@ -58,9 +59,7 @@ export default class ReviewsController {
         }
       )
 
-      // @ts-ignore
-      const books = await Book.query().preload('reviews')
-      return inertia.render('book', {books: books})
+      return response.redirect().toRoute('book.index');
     } catch (error) {
 
       // Logging Skipped

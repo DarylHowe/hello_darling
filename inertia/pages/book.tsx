@@ -1,4 +1,4 @@
-import {Head, Link} from '@inertiajs/react';
+import {Head, Link, usePage} from '@inertiajs/react';
 import Layout from '~/components/layout';
 import '../css/book.css';
 
@@ -26,6 +26,11 @@ interface BookProps {
 }
 
 export default function Book({ books }: BookProps) {
+
+  // @ts-ignore
+  const { props } = usePage()
+  const { flash } = props
+
   return (
     <>
       <Head title="Books" />
@@ -33,6 +38,7 @@ export default function Book({ books }: BookProps) {
         <div className="book-container">
           <h1>Books</h1>
           <Link href="/book/create">Create Book</Link>
+          {flash?.error && <div className="error" style={{color: 'red'}}>{flash.error}</div>}
           <br></br>
           <br></br>
           <ul className="book-list">
@@ -46,9 +52,9 @@ export default function Book({ books }: BookProps) {
                   <h3>Reviews ({book.reviews.length}) - <Link href={`book/${book.id}/review/create`}>Create Review</Link></h3>
                   <br></br>
                   <ul className="review-list">
-                    {book.reviews.map((review) => (
+                    {book.reviews && book.reviews.map((review) => (
                       <li key={review.id} className="review-item">
-                        <p>Reviewer: {review.user.fullName}</p>
+                        <p>Reviewer: {review.user && review.user.fullName}</p>
                         <p>Review: "{review.comment}"</p>
                       </li>
                     ))}
