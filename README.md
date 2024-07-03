@@ -48,11 +48,6 @@ git clone https://github.com/DarylHowe/hello_darling.git
 cd my-adonisjs-app
  ```
 
-2. Checkout to the branch named 'dev'
-```
-git checkout dev
- ```
-
 2. Create .env file in my-adonisjs-app directory, copy paste values from .env.example file into it. 
 
 
