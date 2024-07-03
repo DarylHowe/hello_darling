@@ -48,14 +48,14 @@ export default function Book({ books }: BookProps) {
             {books.map((book) => {
               return (
                 <li key={book.id} className="book-item">
-                  <h2>{book.title}</h2>
-                  <p>{book.author}</p>
+                  <h3>{book.title}</h3>
+                  <p>By {book.author}</p>
                   <br></br>
                   <br></br>
-                  <h3>
+                  <h4>
                     Reviews ({book.reviews.length}) -{' '}
                     <Link href={`book/${book.id}/review/create`}>Create Review</Link>
-                  </h3>
+                  </h4>
                   <br></br>
                   <ul className="review-list">
                     {book.reviews &&

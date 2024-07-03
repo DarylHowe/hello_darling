@@ -103,7 +103,7 @@ export default class AuthController {
     } catch (e) {
       // Logging Skipped
       // Todo: Include logging info message detailing the error
-      return response.status(500).send({ error: 'Registration failed' })
+      return response.status(500).send({ error: 'Login failed' })
     }
   }
 
