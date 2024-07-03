@@ -1,0 +1,39 @@
+/* Layout.css */
+
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the layout spans the entire viewport height */
+}
+
+.content {
+  flex: 1; /* Content area takes up remaining vertical space */
+}
+
+/* CommentMenuBar.css */
+
+.comment-menu-bar {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+}
+
+.comment-menu-bar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.comment-menu-bar li {
+  margin-right: 10px;
+}
+
+.comment-menu-bar a {
+  color: white;
+  text-decoration: none;
+}
+
+.comment-menu-bar a:hover {
+  text-decoration: underline;
+}
