@@ -65,6 +65,8 @@ bash build.sh
 node ace serve –watch 
 ```
 
+Project should be available on browser http://localhost:3333 
+
 ### To Do
 
 ------
@@ -77,6 +79,7 @@ I left many 'ToDo' notes within the code to showcase what I would do with more t
 - UI - Styling - of course I have not spent any time styling the project. Time to design and style appropriately is needed.
 - UI - styling / component library added - DaisyUI / Bootstrap etc + Tailwind etc would be added. A more organised approach is needed. This is very much quick and dirty.
 - UI - Components for each type of UI component used. I really have not spent any time refactoring the frontend to use re-usable components.
+- UI - Responive UI is needed based on the users device/screen size
 - EnvExample - Storing credentials here is absolutely not correct as checked into source control. Credentials ideally managed via some secrets manager etc or at least just not stored in .env file
 - 
 
