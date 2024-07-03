@@ -1,87 +1,142 @@
-import type { HttpContext } from '@adonisjs/core/http'
+import type {HttpContext} from '@adonisjs/core/http'
+
+// Models
 import User from '#models/user'
 
-;('use strict')
-
-
 export default class AuthController {
+
   /**
-   * Show Register Page
+   * Display Register Page
    *
    * @param inertia
    */
-  public async registerPage({ inertia }: HttpContext) {
+  public async registerPage({inertia}: HttpContext) {
     return inertia.render('register', {})
   }
 
   /**
-   * Show Login Page
+   * Display Login Page
    *
    * @param inertia
    */
-  public async loginPage({ inertia }: HttpContext) {
+  public async loginPage({inertia}: HttpContext) {
     return inertia.render('login', {})
   }
 
   /**
-   * Show Logout Page
+   * Display Logout Page
    *
    * @param inertia
    */
-  public async logoutPage({ inertia }: HttpContext) {
+  public async logoutPage({inertia}: HttpContext) {
     return inertia.render('logout', {})
   }
 
-  public async dashboardPage({ auth, inertia }: HttpContext) {
+  /**
+   * Register a new user.
+   *
+   * @param auth
+   * @param request
+   * @param response
+   */
+  public async register({auth, request, response}: HttpContext) {
 
-    const user = auth.getUserOrFail()
-    console.log('user', user);
-
-    return inertia.render('home', {user: user})
-  }
-
-  public async register({ auth, request, response }: HttpContext) {
-
-    console.log('register')
+    // Validation Skipped
+    // Todo: Add server side validation for email, password.
+    //  Ensure email value exists, unique, is valid email.
+    //  Ensure password meets and security requirements such as let, special characters etc
 
     try {
-      const { email, password } = request.all();
-      const fullName = 'Test User';
+      const {email, password} = request.all();
 
-      // Create user
+      // Service Class Skipped
+      // Todo: Refactor below code to AuthService class
+      //  Keep controller clean of any business logic
+      //  Service method for me can be more easily testable/re-used
+      const fullName = this.generateRandomName();
       const user = await User.create({
         email,
         password,
         fullName
       });
-
-      // Login user
       await auth.use('web').login(user);
 
-      // Send them to a protected route
-      return response.redirect('/dashboard');
+
+      return response.redirect('/books');
     } catch (error) {
-      console.error(error)
-      return response.status(500).send({ error: 'Registration failed' })
+
+      // Logging Skipped
+      // Todo: Include logging detailing the error
+
+      return response.status(500).send({error: 'Registration failed'})
     }
   }
 
-  public async login({ auth, request, response }: HttpContext) {
-    console.log('login')
-    const { email, password } = request.only(['email', 'password'])
+  /**
+   * Attempts to login user.
+   *
+   * @param auth
+   * @param request
+   * @param response
+   */
+  public async login({auth, request, response}: HttpContext) {
 
-    // Verify
-    const user = await User.verifyCredentials(email, password)
-    if (!user) {
-      return response.status(401).send({ error: 'Invalid credentials' });
+    // Validation Skipped
+    // Todo: Add server side validation for email, password.
+    //  Ensure email value exists.
+    //  Ensure password value exists.
+
+    try {
+      const {email, password} = request.only(['email', 'password'])
+
+      // Service Class Skipped
+      // Todo: Refactor below code to AuthService class
+      //  Keep controller clean of any business logic
+      //  Service method for me can be more easily testable/re-used
+
+      const user = await User.verifyCredentials(email, password)
+      if (!user) {
+        // Logging Skipped
+        // Todo: Consider logging the attempted login - may need better solution than simply logging.
+        //  Would need to be careful about this also in case of attack
+        return response.status(401).send({error: 'Invalid credentials'});
+      }
+
+      await auth.use('web').login(user)
+
+      response.redirect('/books')
+    } catch (e) {
+
+      // Logging Skipped
+      // Todo: Include logging info message detailing the error
+      return response.status(500).send({error: 'Registration failed'})
     }
 
-    // Login
-    await auth.use('web').login(user)
-
-    // Direct
-    response.redirect('/dashboard')
   }
+
+  /**
+   * Generates a full name randomly from a list of 10 names.
+   *
+   * Todo: Move out to a service class
+   *
+   * @private
+   */
+  private generateRandomName() {
+    const names = [
+      'Alice Johnson',
+      'Bob Smith',
+      'Charlie Brown',
+      'Diana Parker',
+      'Edward Lee',
+      'Fiona Adams',
+      'George Wilson',
+      'Hannah Taylor',
+      'Ian Clark',
+      'Julia Roberts'
+    ];
+
+    // Generate a random index to pick a name
+    const randomIndex = Math.floor(Math.random() * names.length);
+    return names[randomIndex];
+  };
 }
-
-// module.exports = AuthController;

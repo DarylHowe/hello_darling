@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Head, router } from '@inertiajs/react'
 import '../css/Register.css'
 import Layout from "~/components/layout"; // Import your CSS file for styling
@@ -9,7 +9,7 @@ const Register = () => {
     password: 'password',
   })
 
-  const handleChange = (e) => {
+  const handleChange = (e: { target: { name: any; value: any; }; }) => {
     const { name, value } = e.target
     setFormData((prevState) => ({
       ...prevState,
@@ -17,7 +17,7 @@ const Register = () => {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
     console.log('handleSubmit')
     e.preventDefault()
     router.post('/register', formData)

@@ -1,4 +1,3 @@
-import React from 'react';
 import '../css/Logout.css';
 import {router} from "@inertiajs/react";
 import Layout from "~/components/layout";

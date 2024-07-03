@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Head, router } from '@inertiajs/react'
 
 import '../css/Login.css'
@@ -6,11 +6,11 @@ import Layout from "~/components/layout";
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: 'test_user_1@test.com',
+    password: 'password',
   })
 
-  const handleChange = (e) => {
+  const handleChange = (e: { target: { name: any; value: any; }; }) => {
     const { name, value } = e.target
     setFormData((prevState) => ({
       ...prevState,
@@ -18,7 +18,7 @@ const Login = () => {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
     console.log('handleSubmit')
     e.preventDefault()
     router.post('/login', formData)

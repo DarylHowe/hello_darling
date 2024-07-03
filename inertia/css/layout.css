@@ -37,3 +37,9 @@
 .comment-menu-bar a:hover {
   text-decoration: underline;
 }
+
+
+.menu-item {
+  margin-left: 20px;
+  padding: 3px;
+}

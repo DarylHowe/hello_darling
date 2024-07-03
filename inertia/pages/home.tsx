@@ -1,6 +1,6 @@
 import { Head } from '@inertiajs/react';
 import Layout from '~/components/layout';
-import '../css/Home.css';
+import '../css/home.css';
 
 export default function Home(props: { version: number, user: { fullName: string, email: string } }) {
   return (
